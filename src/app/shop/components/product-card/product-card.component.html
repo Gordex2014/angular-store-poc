@@ -1,0 +1,17 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>{{ product.title }}</mat-card-title>
+    <mat-card-subtitle>{{ product.price }} {{ currency }}</mat-card-subtitle>
+  </mat-card-header>
+  <app-image-slider [images]="images"></app-image-slider>
+  <mat-card-content>
+    <p>{{ product.description }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button class="card-actions__button">ADD TO CART</button>
+    <button mat-button class="card-actions__button">DETAILS</button>
+  </mat-card-actions>
+  <mat-card-footer>
+    <p>Stock: {{ product.stock }}</p>
+  </mat-card-footer>
+</mat-card>
