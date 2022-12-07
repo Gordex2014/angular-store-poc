@@ -22,7 +22,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.store.dispatch(productActions.loadproducts());
 
     this.store
-      .select('products')
+      .select('product')
       .pipe(takeUntil(this.#destroy$))
       .subscribe(productState => {
         this.products = productState.products;

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Currency } from 'src/app/models/enums';
 
 import { Product } from '../../../models';
-import { ImageObject } from '../../../types';
 
 @Component({
   selector: 'app-product-card',
@@ -13,7 +13,7 @@ export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
   images: string[] = [];
 
-  constructor() {}
+  constructor(private readonly router: Router) {}
 
   ngOnInit(): void {
     if (!this.product.images) {
@@ -25,5 +25,9 @@ export class ProductCardComponent implements OnInit {
 
   get currency(): string {
     return Currency[this.product.currency];
+  }
+
+  goToProductDetails(): void {
+    this.router.navigate(['/shop/products', this.product.id]);
   }
 }

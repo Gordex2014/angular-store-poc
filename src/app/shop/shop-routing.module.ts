@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { ShopComponent } from './shop.component';
 
@@ -10,11 +11,15 @@ const routes: Routes = [
     component: ShopComponent,
     children: [
       {
-        path: 'list',
+        path: 'products/list',
         component: ProductsListComponent,
       },
-      { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: '**', redirectTo: 'list' },
+      {
+        path: 'products/:id',
+        component: ProductDetailsComponent,
+      },
+      { path: '', redirectTo: 'products/list', pathMatch: 'full' },
+      { path: '**', redirectTo: 'products/list' },
     ],
   },
 ];

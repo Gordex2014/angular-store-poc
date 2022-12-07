@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgImageSliderComponent } from 'ng-image-slider';
 
-import { ImageObject } from '../../../types';
+import { ImageObject } from '../../types';
 
 @Component({
   selector: 'app-image-slider',
