@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Currency } from 'src/app/models/enums';
+import { Store } from '@ngrx/store';
+import { delay, of } from 'rxjs';
+import { cartActions } from 'src/app/store/actions';
+import { AppState } from 'src/app/store/app.reducers';
 
 import { Product } from '../../../models';
 
@@ -11,23 +14,35 @@ import { Product } from '../../../models';
 })
 export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
-  images: string[] = [];
+  addToCartLoading = false;
 
-  constructor(private readonly router: Router) {}
+  #ONE_SECOND = 1000;
+
+  constructor(
+    private readonly router: Router,
+    private readonly store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     if (!this.product.images) {
       return;
     }
-
-    this.images = this.product.images.map(image => image.url);
-  }
-
-  get currency(): string {
-    return Currency[this.product.currency];
   }
 
   goToProductDetails(): void {
     this.router.navigate(['/shop/products', this.product.id]);
+  }
+
+  addProductToCart(): void {
+    this.store.dispatch(
+      cartActions.addproducttocart({ product: this.product })
+    );
+
+    this.addToCartLoading = true;
+    of(true)
+      .pipe(delay(this.#ONE_SECOND))
+      .subscribe(() => {
+        this.addToCartLoading = false;
+      });
   }
 }

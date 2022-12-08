@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil, tap } from 'rxjs';
 
-import { Product } from '../../../models';
-import { productActions } from '../../../store/actions';
 import { AppState } from '../../../store/app.reducers';
+import { Part, Product } from '../../../models';
+import { productActions, partsActions } from '../../../store/actions';
+import { selectPartsPerProduct } from '../../../store/selectors';
 
 @Component({
   selector: 'app-product-details',
@@ -17,7 +18,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   #productId: number = 0;
 
   product: Product | undefined = undefined;
-  error: any;
+  parts: Part[] = [];
   loading: boolean = true;
 
   constructor(
@@ -34,22 +35,41 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }
 
     this.store.dispatch(productActions.loadproduct({ id: this.#productId }));
+    this.store.dispatch(
+      partsActions.loadpartsbyproductid({ id: this.#productId })
+    );
 
     this.store
-      .select('product')
+      .select(selectPartsPerProduct)
       .pipe(
         takeUntil(this.#destroy$),
-        tap(({ error }) => error && this.goHome())
+        tap(({ error }) => {
+          error && this.goHome();
+        })
       )
-      .subscribe(productState => {
-        this.product = productState.product;
-        this.loading = productState.loading;
+      .subscribe(({ product, parts }) => {
+        this.product = product;
+        this.parts = parts;
       });
   }
 
   ngOnDestroy(): void {
     this.#destroy$.next();
     this.#destroy$.complete();
+  }
+
+  get partsExist(): boolean {
+    return this.parts.length > 0;
+  }
+
+  get columns(): number {
+    // 2 columns if parts exist, 1 column if not
+    return this.partsExist ? 2 : 1;
+  }
+
+  get rowHeight(): string {
+    // 1:1 if parts exist, 2:1 if not
+    return this.partsExist ? '1:1' : '2:1';
   }
 
   goHome(): void {

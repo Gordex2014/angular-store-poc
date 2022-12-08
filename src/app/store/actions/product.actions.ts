@@ -4,9 +4,6 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 export const productActions = createActionGroup({
   source: 'Product',
   events: {
-    loadProducts: emptyProps(),
-    loadProductsSuccess: props<{ products: Product[] }>(),
-    loadProductsFailure: props<{ error: Error }>(),
     loadProduct: props<{ id: number }>(),
     loadProductSuccess: props<{ product: Product }>(),
     loadProductFailure: props<{ error: Error }>(),

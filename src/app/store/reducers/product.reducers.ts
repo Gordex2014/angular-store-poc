@@ -3,7 +3,6 @@ import { Product } from '../../../app/models';
 import { productActions } from '../actions';
 
 export interface ProductState {
-  products: Product[];
   product: Product | undefined;
   loading: boolean;
   loaded: boolean;
@@ -11,7 +10,6 @@ export interface ProductState {
 }
 
 export const initialProductState: ProductState = {
-  products: [],
   product: undefined,
   loading: false,
   loaded: false,
@@ -20,25 +18,6 @@ export const initialProductState: ProductState = {
 
 const _productReducer = createReducer(
   initialProductState,
-  on(productActions.loadproducts, state => ({
-    ...state,
-    error: null,
-    loaded: false,
-    loading: true,
-  })),
-  on(productActions.loadproductssuccess, (state, { products }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    error: null,
-    products,
-  })),
-  on(productActions.loadproductsfailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error,
-  })),
   on(productActions.loadproduct, state => ({
     ...state,
     loading: true,

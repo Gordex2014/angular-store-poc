@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { environment } from '../environments/environment';
 import { appReducers } from './store/app.reducers';
-import { EffectsArray } from './store/effects';
+import { effectsArray } from './store/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +22,7 @@ import { EffectsArray } from './store/effects';
     HttpClientModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot(EffectsArray),
+    EffectsModule.forRoot(effectsArray),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

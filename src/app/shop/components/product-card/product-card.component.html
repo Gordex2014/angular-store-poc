@@ -1,14 +1,26 @@
 <mat-card class="card">
   <mat-card-header>
     <mat-card-title>{{ product.title }}</mat-card-title>
-    <mat-card-subtitle>{{ product.price }} {{ currency }}</mat-card-subtitle>
+    <mat-card-subtitle
+      >{{ product.price }}
+      {{ product.currency | currencyEnumToString }}</mat-card-subtitle
+    >
   </mat-card-header>
-  <app-image-slider [images]="images"></app-image-slider>
+  <app-image-slider
+    *ngIf="product.images"
+    [images]="product.images"></app-image-slider>
   <mat-card-content>
     <p>{{ product.description }}</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button class="card-actions__button">ADD TO CART</button>
+    <button
+      mat-button
+      [class.spinner]="addToCartLoading"
+      [disabled]="addToCartLoading"
+      class="card-actions__button"
+      (click)="addProductToCart()">
+      ADD TO CART
+    </button>
     <button
       mat-button
       class="card-actions__button"

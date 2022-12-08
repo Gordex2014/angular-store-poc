@@ -1,3 +1,8 @@
-<pre>
-    {{ product | json }}
-</pre>
+<mat-grid-list [cols]="columns" [rowHeight]="rowHeight">
+  <app-product-display
+    *ngIf="product"
+    [product]="product"></app-product-display>
+  <app-parts-display
+    *ngIf="partsExist"
+    [parts]="parts"></app-parts-display>
+</mat-grid-list>

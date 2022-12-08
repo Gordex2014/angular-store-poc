@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgImageSliderComponent } from 'ng-image-slider';
+import { Image } from '../../../models';
 
 import { ImageObject } from '../../types';
 
@@ -14,15 +15,15 @@ export class ImageSliderComponent implements OnInit {
   imageObject: ImageObject[] = [];
 
   @Input() imagesTitle: string = '';
-  @Input() images: string[] = [];
+  @Input() images: Image[] = [];
 
   constructor() {}
 
   ngOnInit(): void {
     this.images.forEach(image => {
       this.imageObject.push({
-        image,
-        thumbImage: image,
+        image: image.url,
+        thumbImage: image.url,
         title: this.imagesTitle,
       });
     });

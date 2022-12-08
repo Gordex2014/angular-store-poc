@@ -1,0 +1,38 @@
+<button class="go-back" mat-icon-button routerLink="/shop">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<main class="display-container">
+  <div class="display-title">
+    <h1>{{ product.title }}</h1>
+  </div>
+  <section class="display-columns">
+    <app-image-slider
+      class="display-image"
+      *ngIf="product.images"
+      [images]="product.images"></app-image-slider>
+    <div class="display-body">
+      <div class="display-price">
+        <p>
+          <b>Price:</b> {{ product.price }}
+          {{ product.currency | currencyEnumToString }}
+        </p>
+      </div>
+      <div class="display-description">
+        <p><b>Description:</b> {{ product.description }}</p>
+      </div>
+      <div class="display-stock">
+        <p><b>Stock: </b> {{ product.stock }}</p>
+      </div>
+      <div class="display-buttons">
+        <button
+          [class.spinner]="addToCartLoading"
+          (click)="addToCart()"
+          [disabled]="addToCartLoading"
+          color="primary"
+          mat-raised-button>
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
