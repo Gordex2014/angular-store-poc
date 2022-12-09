@@ -1,7 +1,15 @@
 <header role="banner">
   <mat-toolbar>
     <span>Awesome PC store</span>
-    <span class="example-spacer"></span>
-    <a routerLink="/shop">Home</a>
+    <span class="spacer"></span>
+    <div class="links-container">
+      <a routerLink="/shop">Home</a>
+      <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+        <mat-icon>shopping_cart_checkout</mat-icon>
+      </button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <app-cart-card> </app-cart-card>
+      </mat-menu>
+    </div>
   </mat-toolbar>
 </header>

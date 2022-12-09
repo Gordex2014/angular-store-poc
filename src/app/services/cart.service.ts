@@ -1,5 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Cart, Product } from '../models';
+import { CartToProcess, CartProcessResponse } from '../shared/types';
+import { ApiGenericResponse } from '../shared/types';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +15,8 @@ export class CartService {
   #defaultCart: Cart = {
     products: [],
   };
+
+  constructor(private readonly http: HttpClient) {}
 
   /**
    * Gets the cart from the local storage, if it doesn't exist, it creates a new one
@@ -59,6 +66,28 @@ export class CartService {
   }
 
   /**
+   * Adds a quantity of a product to the cart
+   * @param productId The product id to add to the cart
+   * @param quantity The quantity to add to the cart, default is 1
+   * @returns The cart
+   */
+  addProductQuantityToCart(productId: number, quantity: number = 1): Cart {
+    const cart = this.getStoredCart();
+
+    // Search for the product in the cart
+    let productInCart = cart.products.find(
+      cartProduct => cartProduct.productId === productId
+    );
+
+    if (productInCart) {
+      productInCart.quantity += quantity;
+    }
+
+    this.saveCart(cart);
+    return cart;
+  }
+
+  /**
    * Removes a product from the cart
    * @param productId The product id to remove from the cart
    */
@@ -74,11 +103,41 @@ export class CartService {
       return cart;
     }
 
-    const productIndex = cart.products.indexOf(productInCart);
-    cart.products.splice(productIndex, 1);
+    if (productInCart.quantity > 1) {
+      productInCart.quantity--;
+    } else {
+      const productIndex = cart.products.indexOf(productInCart);
+      cart.products.splice(productIndex, 1);
+    }
 
     this.saveCart(cart);
     return cart;
+  }
+
+  /**
+   * Empties the cart
+   */
+  emptyCart(): Cart {
+    localStorage.setItem(
+      this.#LOCAL_STORAGE_KEY,
+      JSON.stringify(this.#defaultCart)
+    );
+
+    return this.#defaultCart;
+  }
+
+  /**
+   * Processes the cart
+   * @param cartToProcess The cart to process
+   * @returns An observable with the response
+   */
+  processCart(
+    cartToProcess: CartToProcess
+  ): Observable<ApiGenericResponse<CartProcessResponse>> {
+    return this.http.post<ApiGenericResponse<CartProcessResponse>>(
+      `${environment.apiUrl}/products/cart`,
+      cartToProcess
+    );
   }
 
   /**

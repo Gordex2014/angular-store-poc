@@ -1,0 +1,52 @@
+<mat-card class="cart-card-container">
+  <mat-card-header>
+    <mat-card-title>Your cart</mat-card-title>
+  </mat-card-header>
+  <hr />
+  <div *ngIf="!cartExists">
+    <mat-card-content>
+      <p>Your cart is empty</p>
+    </mat-card-content>
+  </div>
+
+  <div *ngIf="cartExists">
+    <mat-card-content *ngIf="cartExists">
+      <div *ngIf="cart">
+        <div
+          *ngFor="let product of cart.products"
+          class="cart-card__product-container">
+          <div class="cart-card__product__name">{{ product.name }}</div>
+          <div class="cart-card__product__quantity">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="addProductToCart(product.productId)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="removeProductFromCart(product.productId)">
+              <mat-icon>remove</mat-icon>
+            </button>
+            {{ product.quantity }}
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <hr />
+    <mat-card-footer class="cart-card__footer">
+      <div class="cart-card__footer-total">
+        <p>Total:</p>
+        <p>{{ cartTotal }}</p>
+      </div>
+      <button
+        class="cart-card__footer-total--button"
+        mat-flat-button
+        color="primary"
+        (click)="processCart()">
+        Checkout
+      </button>
+    </mat-card-footer>
+  </div>
+</mat-card>

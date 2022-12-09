@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Product, ProductBase } from '../models';
-import { GenericResponse } from '../shared/types';
+import { ApiGenericResponse } from '../shared/types';
 
 @Injectable({
   providedIn: 'root',
@@ -14,19 +14,19 @@ export class ProductsService {
 
   getProducts(): Observable<Product[]> {
     return this.http
-      .get<GenericResponse<Product[]>>(`${environment.apiUrl}/products`)
+      .get<ApiGenericResponse<Product[]>>(`${environment.apiUrl}/products`)
       .pipe(map(response => response.data));
   }
 
   getProductById(id: number): Observable<Product> {
     return this.http
-      .get<GenericResponse<Product>>(`${environment.apiUrl}/products/${id}`)
+      .get<ApiGenericResponse<Product>>(`${environment.apiUrl}/products/${id}`)
       .pipe(map(response => response.data));
   }
 
   createProduct(productBase: ProductBase): Observable<Product> {
     return this.http
-      .post<GenericResponse<Product>>(
+      .post<ApiGenericResponse<Product>>(
         `${environment.apiUrl}/products`,
         productBase
       )

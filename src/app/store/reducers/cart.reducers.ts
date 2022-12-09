@@ -45,6 +45,19 @@ const _cartReducer = createReducer(
     error: null,
     cart,
   })),
+  on(cartActions.addproductquantity, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(cartActions.addproductquantitysuccess, (state, { cart }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    error: null,
+    cart,
+  })),
   on(cartActions.removeproductfromcart, state => ({
     ...state,
     loading: true,
@@ -57,6 +70,25 @@ const _cartReducer = createReducer(
     loaded: true,
     error: null,
     cart,
+  })),
+  on(cartActions.processcart, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(cartActions.processcartsuccess, (state, { cart }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    error: null,
+    cart,
+  })),
+  on(cartActions.processcartfailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error,
   }))
 );
 

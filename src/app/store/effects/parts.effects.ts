@@ -7,8 +7,6 @@ import { Part } from '../../models';
 import { PartsService } from '../../services';
 import { partsActions } from '../actions';
 
-let partsCache = new Map<number, Part[]>();
-
 @Injectable()
 export class PartsEffects {
   constructor(
@@ -21,17 +19,8 @@ export class PartsEffects {
       ofType(partsActions.loadpartsbyproductid),
       mergeMap(action => {
         const productId = action.id;
-        if (partsCache.has(productId)) {
-          return of(
-            partsActions.loadpartsbyproductidsuccess({
-              parts: partsCache.get(productId)!,
-            })
-          );
-        }
-
         return this.partsService.getPartsByProductId(productId).pipe(
           map(parts => {
-            partsCache.set(productId, parts);
             return partsActions.loadpartsbyproductidsuccess({ parts });
           }),
           catchError(error =>
