@@ -2,6 +2,10 @@
   flex: 1 1 auto;
 }
 
+.link-container {
+  margin: 0 1rem;
+}
+
 .links-container {
   display: flex;
   flex-direction: row;
@@ -10,4 +14,9 @@
   min-width: 7rem;
   height: 100%;
   margin-right: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
 }

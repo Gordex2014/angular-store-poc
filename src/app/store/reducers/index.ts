@@ -1,3 +1,4 @@
+export * from './auth.reducers';
 export * from './cart.reducers';
 export * from './part.reducers';
 export * from './parts.reducers';

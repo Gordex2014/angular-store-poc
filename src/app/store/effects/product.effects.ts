@@ -3,14 +3,15 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mergeMap, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { ProductsService } from '../../services';
+import { ProductsService, SnackBarService } from '../../services';
 import { productActions } from '../actions';
 
 @Injectable()
 export class ProductEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly productsService: ProductsService
+    private readonly productsService: ProductsService,
+    private readonly snackBarService: SnackBarService
   ) {}
 
   loadProduct$ = createEffect(() =>
@@ -34,11 +35,20 @@ export class ProductEffects {
       mergeMap(action => {
         return this.productsService.createProduct(action.product).pipe(
           map(product => {
+            this.snackBarService.openSnackBar(
+              'Product added successfully',
+              'OK'
+            );
             return productActions.createproductsuccess({ product });
           }),
-          catchError(error =>
-            of(productActions.createproductfailure({ error }))
-          )
+          catchError(error => {
+            console.log(error);
+            this.snackBarService.openSnackBar(
+              'Error creating product',
+              error.error.errors[0]
+            );
+            return of(productActions.createproductfailure({ error }));
+          })
         );
       })
     )

@@ -9,21 +9,29 @@ import { MatTableModule } from '@angular/material/table';
 
 import { PartsDisplayComponent } from './components/parts-display/parts-display.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { ProductDisplayComponent } from './components/product-display/product-display.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { ShopComponent } from './shop.component';
 import { ShopRoutingModule } from './shop-routing.module';
-import { ProductDetailsComponent } from './pages/product-details/product-details.component';
-import { ProductDisplayComponent } from './components/product-display/product-display.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { CartCardComponent } from './layout/cart-card/cart-card.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
+    CartCardComponent,
+    FooterComponent,
+    HeaderComponent,
     PartsDisplayComponent,
     ProductCardComponent,
-    ProductsListComponent,
-    ShopComponent,
     ProductDetailsComponent,
     ProductDisplayComponent,
+    ProductsListComponent,
+    ShopComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +39,9 @@ import { ProductDisplayComponent } from './components/product-display/product-di
     MatCardModule,
     MatGridListModule,
     MatIconModule,
+    MatMenuModule,
     MatTableModule,
+    MatToolbarModule,
     SharedModule,
     ShopRoutingModule,
   ],

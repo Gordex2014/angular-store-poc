@@ -1,9 +1,16 @@
 <header role="banner">
   <mat-toolbar>
-    <span>Awesome PC store</span>
+    <a routerLink="/shop">
+      <span>Awesome PC store</span>
+    </a>
     <span class="spacer"></span>
     <div class="links-container">
-      <a routerLink="/shop">Home</a>
+      <div class="link-container" *ngIf="isLogged">
+        <a routerLink="/admin">Admin</a>
+      </div>
+      <div class="link-container">
+        <a routerLink="/shop">Home</a>
+      </div>
       <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
         <mat-icon>shopping_cart_checkout</mat-icon>
       </button>

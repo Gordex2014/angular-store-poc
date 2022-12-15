@@ -4,8 +4,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { CartToProcess } from 'src/app/shared/types';
 import { cartActions } from 'src/app/store/actions';
 
-import { Cart } from '../../models';
-import { AppState } from '../../store/app.reducers';
+import { Cart } from '../../../models';
+import { AppState } from '../../../store/app.reducers';
 
 @Component({
   selector: 'app-cart-card',

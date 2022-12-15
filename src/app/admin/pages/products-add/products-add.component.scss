@@ -1,0 +1,14 @@
+mat-form-field {
+  width: 95%;
+  margin: 0 1rem;
+}
+
+.inputs-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}

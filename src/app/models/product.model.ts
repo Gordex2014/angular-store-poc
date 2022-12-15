@@ -10,7 +10,7 @@ export interface ProductBase {
   currency: Currency;
   description?: string;
   price: number;
-  slug: string;
+  slug?: string;
   stock: number;
   title: string;
   images?: Image[];

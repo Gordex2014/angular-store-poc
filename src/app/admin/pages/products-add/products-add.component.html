@@ -1,0 +1,37 @@
+<app-form-title title="Add a new product"></app-form-title>
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="addProductForm">
+      <div class="inputs-container">
+        <app-input-field
+          *ngFor="let product of productsAddForm"
+          [label]="product.label"
+          [type]="product.type"
+          [placeholder]="product.placeholder"
+          [formControlName]="product.formControlName"></app-input-field>
+
+        <!-- Currency -->
+        <mat-form-field appearance="fill">
+          <mat-label>Currency</mat-label>
+          <mat-select formControlName="currency">
+            <mat-option
+              *ngFor="let currencyKey of currenciesKeys; let i = index"
+              [value]="currenciesValues[i]"
+              >{{ currencyKey }}</mat-option
+            >
+          </mat-select>
+          <mat-hint align="end">Select your currency ^</mat-hint>
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="button-container">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="onSubmit()"
+        [disabled]="formInValid">
+        Submit
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

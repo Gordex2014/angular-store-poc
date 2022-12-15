@@ -1,16 +1,19 @@
 import { ActionReducerMap } from '@ngrx/store';
 import {
-  ProductState,
-  productReducer,
-  ProductsState,
-  productsReducer,
-  PartsState,
-  partsReducer,
+  AuthState,
   CartState,
+  PartsState,
+  ProductState,
+  ProductsState,
+  authReducer,
   cartReducer,
+  partsReducer,
+  productReducer,
+  productsReducer,
 } from './reducers';
 
 export interface AppState {
+  readonly auth: AuthState;
   readonly cart: CartState;
   readonly product: ProductState;
   readonly products: ProductsState;
@@ -18,6 +21,7 @@ export interface AppState {
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
+  auth: authReducer,
   cart: cartReducer,
   product: productReducer,
   products: productsReducer,
