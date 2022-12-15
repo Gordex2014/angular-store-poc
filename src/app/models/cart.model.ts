@@ -5,6 +5,6 @@ export interface Cart {
 export interface CartProduct {
   productId: number;
   name: string;
-  productImage: string;
+  productImage?: string;
   quantity: number;
 }

@@ -55,7 +55,10 @@ export class CartService {
         productId: product.id,
         quantity: 1,
         name: product.title,
-        productImage: product.images ? product.images[0].url : '',
+        productImage:
+          !!product.images && product.images.length > 0
+            ? product.images[0].url
+            : '',
       };
       cart.products.push(productInCart);
     }
